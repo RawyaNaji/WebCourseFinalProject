@@ -1,0 +1,18 @@
+@model RecipeBoard.Models.User
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<h1>My Profile</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Username</dt>
+    <dd class="col-sm-10">@Model.Username</dd>
+    <dt class="col-sm-2">Role</dt>
+    <dd class="col-sm-10">@Model.Role</dd>
+    <dt class="col-sm-2">Saved Recipes</dt>
+    <dd class="col-sm-10">@ViewBag.SavedCount</dd>
+</dl>
+
+<a asp-controller="SavedRecipes" asp-action="Index" class="btn btn-outline-primary">View My Saved Recipes</a>
+<a asp-controller="Account" asp-action="ChangePassword" class="btn btn-outline-secondary">Change Password</a>
