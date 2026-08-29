@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-5">RecipeBoard</h1>
+    <p class="lead">Browse, search, and share recipes by category.</p>
+    <a class="btn btn-primary" asp-controller="Recipes" asp-action="Index">Browse Recipes</a>
+    @if (Context.Session.GetString("Username") == null)
+    {
+        <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Login">Login</a>
+    }
+</div>

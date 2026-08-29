@@ -1,0 +1,62 @@
+@model List<RecipeBoard.Models.Recipe>
+@{
+    ViewData["Title"] = "Recipes";
+    var categories = ViewBag.Categories as List<RecipeBoard.Models.Category>;
+}
+
+<h1>Recipes</h1>
+
+<form method="get" asp-controller="Recipes" asp-action="Index" class="row g-2 mb-3">
+    <div class="col-auto">
+        <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control" placeholder="Search by title" />
+    </div>
+    <div class="col-auto">
+        <select name="categoryId" class="form-select">
+            <option value="">All Categories</option>
+            @foreach (var category in categories)
+            {
+                if (ViewBag.CategoryId != null && (int)ViewBag.CategoryId == category.CategoryId)
+                {
+                    <option value="@category.CategoryId" selected="selected">@category.Name</option>
+                }
+                else
+                {
+                    <option value="@category.CategoryId">@category.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <a asp-controller="Recipes" asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Prep Time (min)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipe in Model)
+        {
+            <tr>
+                <td>@recipe.Title</td>
+                <td>@recipe.Category.Name</td>
+                <td>@recipe.PrepTimeMinutes</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@recipe.RecipeId">View</a>
+                    @if (Context.Session.GetString("Role") == "Admin")
+                    {
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@recipe.RecipeId">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@recipe.RecipeId">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
