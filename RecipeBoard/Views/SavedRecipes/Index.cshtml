@@ -1,0 +1,41 @@
+@model List<RecipeBoard.Models.SavedRecipe>
+@{
+    ViewData["Title"] = "My Saved Recipes";
+}
+
+<h1>My Saved Recipes</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">You haven't saved any recipes yet. Browse <a asp-controller="Recipes" asp-action="Index">Recipes</a> and click "Save Recipe" on one you like.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Saved Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var saved in Model)
+            {
+                <tr>
+                    <td>@saved.Recipe.Title</td>
+                    <td>@saved.Recipe.Category.Name</td>
+                    <td>@saved.SavedDate.ToShortDateString()</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" asp-controller="Recipes" asp-action="Details" asp-route-id="@saved.RecipeId">View</a>
+                        <form method="post" asp-controller="SavedRecipes" asp-action="Remove" class="d-inline">
+                            <input type="hidden" name="recipeId" value="@saved.RecipeId" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -63,6 +63,10 @@ namespace RecipeBoard.Controllers
             int viewCount = HttpContext.Session.GetInt32("ViewCount") ?? 0;
             HttpContext.Session.SetInt32("ViewCount", viewCount + 1);
 
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.IsSaved = userId != null &&
+                context.SavedRecipes.Any(s => s.UserId == userId.Value && s.RecipeId == id);
+
             return View(recipe);
         }
 

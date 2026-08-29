@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using RecipeBoard.Models;
 
@@ -13,6 +14,7 @@ namespace RecipeBoard.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<SavedRecipe> SavedRecipes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +35,10 @@ namespace RecipeBoard.Data
                 new Recipe { RecipeId = 2, Title = "Grilled Cheese Sandwich", Instructions = "Butter two slices of bread, add cheese, and grill until golden.", PrepTimeMinutes = 10, CategoryId = 2 },
                 new Recipe { RecipeId = 3, Title = "Spaghetti Bolognese", Instructions = "Cook pasta. Brown ground beef with onions and garlic, add tomato sauce, simmer, and combine.", PrepTimeMinutes = 40, CategoryId = 3 },
                 new Recipe { RecipeId = 4, Title = "Chocolate Chip Cookies", Instructions = "Cream butter and sugar, add eggs and vanilla, mix in flour and chocolate chips, bake at 350F for 10 minutes.", PrepTimeMinutes = 30, CategoryId = 4 }
+            );
+
+            modelBuilder.Entity<SavedRecipe>().HasData(
+                new SavedRecipe { SavedRecipeId = 1, UserId = 2, RecipeId = 1, SavedDate = new DateTime(2026, 8, 20) }
             );
         }
     }

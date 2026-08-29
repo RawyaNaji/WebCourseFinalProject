@@ -15,10 +15,23 @@ ASP.NET Core MVC (.NET 6) + EF Core final project.
 
 - Admin: `admin / admin123`
 - User: `guest / guest123`
+- (or sign up your own account via "Sign Up")
+
+## Functionality
+
+- Sign up / Login / Logout / Change Password / View Profile
+- Browse and search recipes by title, filter by category
+- Save/unsave a recipe to "My Saved Recipes" (per-user, session-driven)
+- "Recently viewed" recipe + view counter shown site-wide (session)
+- Admin-only: Add / Edit / Delete recipes
 
 ## Project structure
 
-- `Models/` — `User`, `Category`, `Recipe`
+- `Models/` — `User`, `Category`, `Recipe`, `SavedRecipe` (junction: User↔Recipe, one row per save)
 - `Data/ApplicationDbContext.cs` — EF Core DbContext + seed data
-- `Controllers/` — `HomeController`, `AccountController` (login/logout/session), `RecipesController` (CRUD, search, session "recently viewed")
+- `Controllers/`:
+  - `HomeController`
+  - `AccountController` — login/logout/register/change password/profile, all session-driven
+  - `RecipesController` — CRUD, search/filter, session "recently viewed"
+  - `SavedRecipesController` — save/unsave a recipe, "My Saved Recipes" list (filtered by session UserId)
 - `Views/` — Razor views per controller
