@@ -16,7 +16,7 @@
     <dd class="col-sm-10">@Model.PrepTimeMinutes minutes</dd>
 </dl>
 
-<form method="post" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.RecipeId">
+<form method="post" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.RecipeId" onsubmit="return confirmDelete()">
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
 </form>

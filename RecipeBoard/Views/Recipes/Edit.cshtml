@@ -35,7 +35,8 @@
 
     <div class="mb-3">
         <label asp-for="Instructions" class="form-label"></label>
-        <textarea asp-for="Instructions" class="form-control" rows="5"></textarea>
+        <textarea asp-for="Instructions" id="instructionsField" class="form-control" rows="5" onkeyup="updateCharCount()"></textarea>
+        <div id="charCount" class="form-text">0 characters</div>
         <span asp-validation-for="Instructions" class="text-danger"></span>
     </div>
 
@@ -45,4 +46,7 @@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        updateCharCount();
+    </script>
 }

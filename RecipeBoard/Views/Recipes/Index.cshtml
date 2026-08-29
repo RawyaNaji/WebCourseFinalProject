@@ -32,31 +32,38 @@
     </div>
 </form>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Prep Time (min)</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var recipe in Model)
-        {
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No recipes found matching your search.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@recipe.Title</td>
-                <td>@recipe.Category.Name</td>
-                <td>@recipe.PrepTimeMinutes</td>
-                <td>
-                    <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@recipe.RecipeId">View</a>
-                    @if (Context.Session.GetString("Role") == "Admin")
-                    {
-                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@recipe.RecipeId">Edit</a>
-                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@recipe.RecipeId">Delete</a>
-                    }
-                </td>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Prep Time (min)</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var recipe in Model)
+            {
+                <tr>
+                    <td>@recipe.Title</td>
+                    <td><span class="badge bg-secondary">@recipe.Category.Name</span></td>
+                    <td>@recipe.PrepTimeMinutes</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@recipe.RecipeId">View</a>
+                        @if (Context.Session.GetString("Role") == "Admin")
+                        {
+                            <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@recipe.RecipeId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@recipe.RecipeId">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
